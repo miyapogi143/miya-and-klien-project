@@ -1,0 +1,25 @@
+<?php
+class Product {
+    private $name;
+    private $price;
+    private $quantity;
+    private $description;
+    private $category;
+
+    public function __construct($name, $price, $quantity, $description, $category) {
+        $this->name = $name;
+        $this->price = $price;
+        $this->quantity = $quantity;
+        $this->description = $description;
+        $this->category = $category;
+    }
+
+    public function getProductInfo() {
+        return "Product Name: " . $this->name . "\n" .
+               "Price: $" . $this->price . "\n" .
+               "Quantity: " . $this->quantity . "\n" .
+               "Description: " . $this->description . "\n" .
+               "Category: " . $this->category;
+    }
+}
+?>
