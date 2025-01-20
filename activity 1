@@ -1,25 +1,56 @@
 <?php
-class Product {
-    private $name;
-    private $price;
-    private $quantity;
-    private $description;
-    private $category;
 
-    public function __construct($name, $price, $quantity, $description, $category) {
+class Product {
+    public $name;
+    public $description;
+    public $price;
+    public $category;
+    public $stock;
+
+    /**
+     * Sets the product details. Includes input validation.
+     *
+     * @param string $name The name of the product.
+     * @param string $description The description of the product.
+     * @param float $price The price of the product.
+     * @param string $category The category of the product.
+     * @param int $stock The stock quantity of the product.
+     * @throws InvalidArgumentException if input is invalid.
+     */
+    public function setProductDetails(string $name, string $description, float $price, string $category, int $stock): void {
+        if ($price < 0) {
+            throw new InvalidArgumentException("Price cannot be negative.");
+        }
+        if ($stock < 0) {
+            throw new InvalidArgumentException("Stock cannot be negative.");
+        }
         $this->name = $name;
-        $this->price = $price;
-        $this->quantity = $quantity;
         $this->description = $description;
+        $this->price = $price;
         $this->category = $category;
+        $this->stock = $stock;
     }
 
-    public function getProductInfo() {
+    /**
+     * Returns a formatted string containing the product information.
+     * @return string The product information.
+     */
+    public function getProductInfo(): string {
         return "Product Name: " . $this->name . "\n" .
-               "Price: $" . $this->price . "\n" .
-               "Quantity: " . $this->quantity . "\n" .
                "Description: " . $this->description . "\n" .
-               "Category: " . $this->category;
+               "Price: $" . $this->price . "\n" .
+               "Category: " . $this->category . "\n" .
+               "Stock: " . $this->stock;
     }
 }
+
+$product = new Product();
+
+try {
+    $product->setProductDetails("Smartphone", "High-end smartphone with 5G", 999.99, "Electronics", 5);
+    print($product->getProductInfo());
+} catch (InvalidArgumentException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
 ?>
